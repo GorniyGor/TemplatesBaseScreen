@@ -1,0 +1,33 @@
+buildscript {
+    ext.supportVersion = '26.1.0'
+    ext.kotlinVersion = '1.1.51'
+    ext.rxVersion = '2.1.7'
+    ext.rxAndroidVersion = '2.0.1'
+    ext.rxBindingVersion = '2.0.0'
+    ext.retrofitVersion = '2.3.0'
+    ext.okhttpVersion = '3.9.1'
+
+    ext.compileSdkVersion = 26
+    ext.targetSdkVersion = 26
+    ext.minSdkVersion = 19
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
