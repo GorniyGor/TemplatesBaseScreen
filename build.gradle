@@ -1,11 +1,12 @@
 buildscript {
-    ext.supportVersion = '26.1.0'
+    ext.supportVersion = '27.0.2'
     ext.kotlinVersion = '1.1.51'
     ext.rxVersion = '2.1.7'
     ext.rxAndroidVersion = '2.0.1'
     ext.rxBindingVersion = '2.0.0'
     ext.retrofitVersion = '2.3.0'
     ext.okhttpVersion = '3.9.1'
+    ext.kotPrefVersion = '2.2.0'
 
     ext.compileSdkVersion = 26
     ext.targetSdkVersion = 26
