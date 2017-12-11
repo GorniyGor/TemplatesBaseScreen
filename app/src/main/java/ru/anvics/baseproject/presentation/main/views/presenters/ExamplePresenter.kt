@@ -17,6 +17,9 @@ class ExamplePresenter : BasePresenter<ExampleView> {
     fun getEntityById(id: Long) {
         getEntityById.setId(id)
         getEntityById.execute(GetEntityObserver())
+
+//        Так же можно сделать выполнение с использованием лямбд
+//        getEntityById.execute({/* onNext */ t -> view?.setEntity(t) }, { /* onError */ }, { /* onComplete */ })
     }
 
     override fun destroy() {

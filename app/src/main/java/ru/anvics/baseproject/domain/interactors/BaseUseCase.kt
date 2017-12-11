@@ -22,6 +22,26 @@ abstract class BaseUseCase<T>(
         disposables.add(observable.subscribeWith(observer))
     }
 
+    fun execute(next: (T) -> Unit, error: (Throwable) -> Unit, complete: () -> Unit) {
+        val observable = buildUseCaseObservable()
+                .subscribeOn(threadExecutor)
+                .observeOn(postExecutionThread)
+        disposables.add(observable.subscribeWith(object : DisposableObserver<T>() {
+            override fun onComplete() {
+                complete()
+            }
+
+            override fun onNext(t: T) {
+                next(t)
+            }
+
+            override fun onError(e: Throwable) {
+                error(e)
+            }
+
+        }))
+    }
+
     fun dispose() {
         if (!disposables.isDisposed) {
             disposables.dispose()
