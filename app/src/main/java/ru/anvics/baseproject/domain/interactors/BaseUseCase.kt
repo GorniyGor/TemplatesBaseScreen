@@ -22,7 +22,7 @@ abstract class BaseUseCase<T>(
         disposables.add(observable.subscribeWith(observer))
     }
 
-    fun execute(next: (T) -> Unit, error: (Throwable) -> Unit, complete: () -> Unit) {
+    fun execute(next: (T) -> Unit = {}, error: (Throwable) -> Unit = {}, complete: () -> Unit = {}) {
         val observable = buildUseCaseObservable()
                 .subscribeOn(threadExecutor)
                 .observeOn(postExecutionThread)
