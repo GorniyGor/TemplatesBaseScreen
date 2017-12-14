@@ -5,13 +5,14 @@
           tools:ignore="GoogleAppIndexingWarning">
 
     <application
+        android:name=".presentation.App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MainTheme">
-        <activity android:name=".presentation.main.views.ui.activities.ExampleActivity">
+        <activity android:name="ru.anvics.baseproject.presentation.views.ui.activities.ExampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -1,4 +1,4 @@
-package ru.anvics.baseproject.presentation.main.views.ui.activities
+package ru.anvics.baseproject.presentation.views.ui.activities
 
 import android.support.v7.app.AppCompatActivity
 

@@ -1,11 +1,11 @@
-package ru.anvics.baseproject.presentation.main.views.ui.activities
+package ru.anvics.baseproject.presentation.views.ui.activities
 
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.anvics.baseproject.R
 import ru.anvics.baseproject.domain.ExampleEntity
-import ru.anvics.baseproject.presentation.main.views.ExampleView
-import ru.anvics.baseproject.presentation.main.views.presenters.ExamplePresenter
+import ru.anvics.baseproject.presentation.presenters.ExamplePresenter
+import ru.anvics.baseproject.presentation.views.ExampleView
 
 class ExampleActivity : BaseActivity(), ExampleView {
     private val presenter = ExamplePresenter()

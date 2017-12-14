@@ -1,10 +1,10 @@
-package ru.anvics.baseproject.presentation.main.views.presenters
+package ru.anvics.baseproject.presentation.presenters
 
 import ru.anvics.baseproject.data.ExampleRepository
 import ru.anvics.baseproject.domain.ExampleEntity
 import ru.anvics.baseproject.domain.interactors.BaseObserver
 import ru.anvics.baseproject.domain.interactors.GetEntityById
-import ru.anvics.baseproject.presentation.main.views.ExampleView
+import ru.anvics.baseproject.presentation.views.ExampleView
 
 class ExamplePresenter : BasePresenter<ExampleView> {
     private var view: ExampleView? = null

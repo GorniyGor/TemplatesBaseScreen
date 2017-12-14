@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.anvics.baseproject.presentation.main.views.ui.activities.ExampleActivity">
+    tools:context=".presentation.views.ui.activities.ExampleActivity">
 
     <TextView
         android:id="@+id/tvEntityId"

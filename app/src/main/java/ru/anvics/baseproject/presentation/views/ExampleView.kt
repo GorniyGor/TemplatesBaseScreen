@@ -1,4 +1,4 @@
-package ru.anvics.baseproject.presentation.main.views
+package ru.anvics.baseproject.presentation.views
 
 import ru.anvics.baseproject.domain.ExampleEntity
 
