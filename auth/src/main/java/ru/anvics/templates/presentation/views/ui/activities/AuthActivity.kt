@@ -5,12 +5,11 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.activity_auth.*
-import ru.anvics.templates.presentation.navigators.AuthNavigator
 import ru.anvics.templates.R
+import ru.anvics.templates.presentation.navigators.AuthNavigator
 import ru.anvics.templates.presentation.presenters.AuthPresenter
 import ru.anvics.templates.presentation.views.iviews.AuthView
 import ru.anvics.templates.util.ProgressDialog
-import ru.anvics.templates.util.Validators
 
 class AuthActivity : BaseActivity(), AuthView {
 
@@ -36,7 +35,7 @@ class AuthActivity : BaseActivity(), AuthView {
         }
 
         val loginObserver = RxTextView.textChanges(etLogin)
-                .map { it.isNotEmpty() && Validators.isLogin(it) } //Нужно кидать какое-то сообщение об ошибке
+                .map { it.isNotEmpty() } //Нужно кидать какое-то сообщение об ошибке
         val passwordObserver = RxTextView.textChanges(etPassword)
                 .map { it.isNotEmpty() }
 

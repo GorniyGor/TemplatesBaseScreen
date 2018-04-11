@@ -7,14 +7,34 @@ import android.util.Patterns
  */
 object Validators {
 
-    fun isPhone(s: CharSequence): Boolean = Patterns.PHONE.matcher(s).matches()
+    fun isValid(vararg param: Validator): Boolean = param.all { it.isValid }
 
-    fun isEmail(s: CharSequence): Boolean = Patterns.EMAIL_ADDRESS.matcher(s).matches()
+    fun phone(s: CharSequence): Validator =
+            Validator(Patterns.PHONE.matcher(s).matches(),
+                    "Неверный формат телефона")
 
-    fun isName(s: CharSequence): Boolean = s.matches(Regex("^([A-Za-z]+)(\\s[A-Za-z]+)*\\s?$"))
+    fun email(s: CharSequence): Validator =
+            Validator(Patterns.EMAIL_ADDRESS.matcher(s).matches(),
+                    "Неверный формат почты")
 
-    fun isLogin(s: CharSequence): Boolean = s.matches(Regex("^([A-Za-z0-9]+)(\\s[A-Za-z0-9]+)*\\s?$"))
+    fun name(s: CharSequence): Validator =
+            Validator(s.matches(Regex("^([A-Za-z]+)(\\s[A-Za-z]+)*\\s?$")),
+                    "Неверный формат имени")
 
-    fun isConfirmPassword(s1: CharSequence, s2: CharSequence): Boolean = (s1 == s2)
+    fun login(s: CharSequence): Validator =
+            Validator(s.matches(Regex("^([A-Za-z0-9]+)(\\s[A-Za-z0-9]+)*\\s?$")),
+                    "Неверный формат логина")
+
+    fun password(s: CharSequence): Validator =
+            Validator(s.matches(Regex("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=])(?=\\\\S+\$).{4,}\$")),
+                    "# a digit must occur at least once\n" +
+                            "# a lower case letter must occur at least once\n" +
+                            "# an upper case letter must occur at least once\n" +
+                            "# a special character must occur at least once you can replace with your special characters\n" +
+                            "# no whitespace allowed in the entire string\n" +
+                            "# anything, at least six places though")
+
+    fun confirmPassword(s1: CharSequence, s2: CharSequence): Validator =
+            Validator((s1 == s2), "Пароли не совпадают")
 
 }

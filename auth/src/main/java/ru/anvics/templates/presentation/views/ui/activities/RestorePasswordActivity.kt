@@ -7,7 +7,6 @@ import ru.anvics.templates.R
 import ru.anvics.templates.presentation.presenters.RestorePasswordPresenter
 import ru.anvics.templates.presentation.views.iviews.RestorePasswordView
 import ru.anvics.templates.util.ProgressDialog
-import ru.anvics.templates.util.Validators
 
 /**
  * Created by Gor on 10.04.2018.
@@ -25,7 +24,7 @@ class RestorePasswordActivity : BaseActivity(), RestorePasswordView {
 
         /*v*/
         val contactObservable = RxTextView.textChanges(etContact)
-                .map { it.isNotEmpty() && /*v*/Validators.isEmail(it) }
+                .map { it.isNotEmpty() }
 
         contactObservable.subscribe { if(it) btnRestore.isEnabled = it }
 

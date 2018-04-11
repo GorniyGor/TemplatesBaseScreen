@@ -3,6 +3,10 @@ package ru.anvics.templates.domain.interactors
 import io.reactivex.Completable
 import ru.anvics.templates.domain.entities.RegistrationInfo
 import ru.anvics.templates.domain.repository.IAuthRepository
+import ru.anvics.templates.util.Throwables.RegistrationThrowable
+import ru.anvics.templates.util.Throwables.RestorePasswordThrowable
+import ru.anvics.templates.util.Throwables.SignInThrowable
+import ru.anvics.templates.util.Validator
 import ru.anvics.templates.util.Validators
 
 /**
@@ -21,50 +25,42 @@ class AuthInteractor(private val repository: IAuthRepository){
     }
 
     fun restorePassword(contact: String): Completable {
-        return repository.restorePassword(contact)
+        return restoreValidate(contact).andThen(repository.restorePassword(contact))
     }
 
-
-    //--Стрёмно бросать обратно список неправильных полей
-    /*private fun Any.check(validator: Validator<RegistrationInfo>): Completable {
-        this as RegistrationInfo
-
-    }
-
-    interface Validator<T>{
-        fun isValid(v)
-    }*/
 
     private fun signInValidate(p: Pair<String, String>): Completable {
-        return if(Validators.isLogin(p.first)) Completable.complete()
-        else Completable.error(SignInThrowable())
+        val signThrowable = SignInThrowable()
+        signThrowable.login = Validators.login(p.first)
+        signThrowable.password = Validators.login(p.second)
+        return if(
+                Validators.isValid(signThrowable.login, signThrowable.password)
+                ) Completable.complete()
+        else Completable.error(signThrowable)
     }
-    inner class SignInThrowable(message: String = "Неверный формат логина"): Throwable(message = message)
-
 
     private fun registrationValidate(data: RegistrationInfo): Completable {
         val regThrowable = RegistrationThrowable()
-        regThrowable.login = Validators.isLogin(data.login)
-        regThrowable.email = Validators.isEmail(data.email)
-        regThrowable.phone = Validators.isPhone(data.phone)
-        regThrowable.name = Validators.isName(data.name)
-        regThrowable.lastName = Validators.isName(data.lastName)
-        regThrowable.confirmingPassword = Validators.isConfirmPassword(data.password, data.confirmingPassword)
-        return if(regThrowable.isValid()) Completable.complete()
+        regThrowable.login = Validators.login(data.login)
+        regThrowable.email = Validators.email(data.email)
+        regThrowable.phone = Validators.phone(data.phone)
+        regThrowable.name = Validators.name(data.name)
+        regThrowable.confirmingPassword = Validators.confirmPassword(data.password, data.confirmingPassword)
+        return if(
+                Validators.isValid(
+                        regThrowable.login, regThrowable.email, regThrowable.login,
+                        regThrowable.phone, regThrowable.name, regThrowable.confirmingPassword)
+                ) Completable.complete()
         else Completable.error(regThrowable)
     }
-    inner class RegistrationThrowable: Throwable(){
 
-        var login: Boolean = false
-        var email: Boolean = false
-        var phone: Boolean = false
-        var name: Boolean = false
-        var lastName: Boolean = false
-        var confirmingPassword: Boolean  = false
-
-        fun isValid(): Boolean = (login || email || name || lastName || phone || confirmingPassword)
-
+    private fun restoreValidate(s: String): Completable {
+        val restoreThrowable = RestorePasswordThrowable()
+        restoreThrowable.contact = Validators.email(s)
+        val validator = Validator() // пытаюсь из data class сделать лист, чтобы в isValid не перечислять поля
+        return if(
+                restoreThrowable.contact.isValid
+        ) Completable.complete()
+        else Completable.error(restoreThrowable)
     }
-
-
 }

@@ -9,7 +9,6 @@ data class RegistrationInfo(
         val email: String,
         val phone: String,
         val name: String,
-        val lastName: String,
         val password: String,
         val confirmingPassword: String
 )

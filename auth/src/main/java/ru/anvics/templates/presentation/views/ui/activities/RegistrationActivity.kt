@@ -10,12 +10,12 @@ import android.widget.TextView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_registration.*
-import ru.anvics.templates.presentation.navigators.AuthNavigator
 import ru.anvics.templates.R
+import ru.anvics.templates.domain.entities.RegistrationInfo
+import ru.anvics.templates.presentation.navigators.AuthNavigator
 import ru.anvics.templates.presentation.presenters.RegistrationPresenter
 import ru.anvics.templates.presentation.views.iviews.RegistrationView
 import ru.anvics.templates.util.ProgressDialog
-import ru.anvics.templates.util.Validators
 
 /**
  * Created by Gor on 10.04.2018.
@@ -43,7 +43,7 @@ class RegistrationActivity : BaseActivity(), RegistrationView {
 
         /*v*/
         val loginObservable = RxTextView.textChanges(etLogin)
-                .map { it.isNotEmpty() && Validators.isLogin(it)}
+                .map { it.isNotEmpty() }
 
         Observable.combineLatest(
                 arrayOf(/*v*/loginObservable),
@@ -51,12 +51,17 @@ class RegistrationActivity : BaseActivity(), RegistrationView {
         ).subscribe { btnRegister.isEnabled = it }
 
         btnRegister.setOnClickListener {
-            /*presenter.register(
+            presenter.register(
                     RegistrationInfo(
-                            *//*v*//*
-                            etLogin.text.toString()
+                            /*v*/
+                            etLogin.text.toString(),
+                            etEmail.text.toString(),
+                            etPhone.text.toString(),
+                            etName.text.toString(),
+                            etPassword.text.toString(),
+                            etConfirmingPassword.text.toString()
                     )
-            )*/
+            )
         }
     }
 
