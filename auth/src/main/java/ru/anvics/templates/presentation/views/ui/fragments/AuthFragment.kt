@@ -8,14 +8,16 @@ import ru.anvics.templates.R
 import ru.anvics.templates.presentation.presenters.AuthPresenter
 import ru.anvics.templates.presentation.views.iviews.AuthView
 import ru.anvics.templates.util.ProgressDialog
+import ru.anvics.templates.util.Throwables.SignInThrowable
 
 class AuthFragment : BaseFragment(), AuthView {
+    override fun onInvalidFields(throwable: SignInThrowable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun onLoginSuccess() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-//    override fun setText(parameter: AuthEntity) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
 
     private val presenter = AuthPresenter()
     /*v*/

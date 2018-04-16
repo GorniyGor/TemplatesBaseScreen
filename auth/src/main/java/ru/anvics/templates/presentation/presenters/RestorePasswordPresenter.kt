@@ -3,6 +3,7 @@ package ru.anvics.templates.presentation.presenters
 import ru.anvics.templates.data.repositories.AuthRepository
 import ru.anvics.templates.domain.interactors.AuthInteractor
 import ru.anvics.templates.presentation.views.iviews.RestorePasswordView
+import ru.anvics.templates.util.Throwables.RestorePasswordThrowable
 
 class RestorePasswordPresenter : BasePresenter<RestorePasswordView>() {
 
@@ -19,7 +20,8 @@ class RestorePasswordPresenter : BasePresenter<RestorePasswordView>() {
                             view?.success()
                         },
                         {
-                            view?.error(it.message.toString())
+                            if(it is RestorePasswordThrowable) view?.onInvalidFields(it)
+                            else view?.error(it.message.toString())
                         }
                 )
     }

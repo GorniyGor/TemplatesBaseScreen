@@ -7,6 +7,7 @@ import ru.anvics.templates.R
 import ru.anvics.templates.presentation.presenters.RestorePasswordPresenter
 import ru.anvics.templates.presentation.views.iviews.RestorePasswordView
 import ru.anvics.templates.util.ProgressDialog
+import ru.anvics.templates.util.Throwables.RestorePasswordThrowable
 
 /**
  * Created by Gor on 10.04.2018.
@@ -33,13 +34,22 @@ class RestorePasswordActivity : BaseActivity(), RestorePasswordView {
         }
     }
 
-
     override fun success() {
         //TODO("not implemented")
         onBackPressed()
     }
 
+
+    override fun onInvalidFields(throwable: RestorePasswordThrowable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun error(message: String) {
         //TODO("not implemented")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.destroy()
     }
 }

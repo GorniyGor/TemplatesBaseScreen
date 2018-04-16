@@ -16,6 +16,7 @@ import ru.anvics.templates.presentation.navigators.AuthNavigator
 import ru.anvics.templates.presentation.presenters.RegistrationPresenter
 import ru.anvics.templates.presentation.views.iviews.RegistrationView
 import ru.anvics.templates.util.ProgressDialog
+import ru.anvics.templates.util.Throwables.RegistrationThrowable
 
 /**
  * Created by Gor on 10.04.2018.
@@ -71,11 +72,15 @@ class RegistrationActivity : BaseActivity(), RegistrationView {
         finish()
     }
 
+    override fun onInvalidFields(throwable: RegistrationThrowable) {
+        //TODO("not implemented")
+    }
+
     override fun error(message: String) {
         //TODO("not implemented")
     }
 
-    fun makeLink(view: TextView, linkText: String, context: Context){
+    private fun makeLink(view: TextView, linkText: String, context: Context){
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 AuthNavigator.navigateToWebView(context, TERM_URL)
@@ -88,5 +93,10 @@ class RegistrationActivity : BaseActivity(), RegistrationView {
 
         view.movementMethod = LinkMovementMethod.getInstance()
         view.setText(spannableString, TextView.BufferType.SPANNABLE)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.destroy()
     }
 }

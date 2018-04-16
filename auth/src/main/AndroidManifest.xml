@@ -4,6 +4,11 @@
     package="ru.anvics.templates"
     tools:ignore="GoogleAppIndexingWarning">
 
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".presentation.App"
         android:allowBackup="false"
@@ -22,6 +27,16 @@
         <activity android:name=".presentation.views.ui.activities.RegistrationActivity"/>
         <activity android:name=".presentation.views.ui.activities.RestorePasswordActivity"/>
         <activity android:name=".presentation.views.ui.activities.WebViewActivity"/>
+        <service android:name=".data.account.AuthenticatorService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
     </application>
 
     </manifest>

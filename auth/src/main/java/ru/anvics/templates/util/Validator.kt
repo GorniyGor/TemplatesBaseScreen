@@ -1,9 +1,21 @@
 package ru.anvics.templates.util
 
+import io.reactivex.Completable
+import ru.anvics.templates.util.Throwables.ValidatingThrowable
+
 /**
- * Created by Gor on 11.04.2018.
+ * Created by Gor on 12.04.2018.
+ *
+ *  T - тип объекта, данные в котором нужно проверить
  */
-data class Validator(
-        var isValid: Boolean = false,
-        var message: String = "Неверный формат"
-)
+
+abstract class Validator<in T, in V: ValidatingThrowable>(private val customThrowable: V) {
+
+    abstract fun compared(vThrowable: V, data: T)
+
+    fun validate(data: T): Completable {
+        compared(customThrowable, data)
+        return if( Validators.isValid(customThrowable.toArray()) ) Completable.complete()
+        else Completable.error(customThrowable)
+    }
+}

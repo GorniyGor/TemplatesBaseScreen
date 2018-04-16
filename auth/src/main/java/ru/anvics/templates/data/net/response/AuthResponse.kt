@@ -4,5 +4,4 @@ import com.google.gson.annotations.SerializedName
 
 data class AuthResponse(
         @field:SerializedName("token")
-        val token: String = ""
-) : BaseResponse()
+        val token: String = "" ) : BaseResponse()

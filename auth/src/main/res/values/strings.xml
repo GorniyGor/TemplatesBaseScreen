@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TemplatesAuth</string>
+    <string name="account_type">ru.anvics.custom</string>
+    <string name="auth_token_type">full_access</string>
 </resources>

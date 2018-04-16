@@ -3,6 +3,7 @@ package ru.anvics.templates.presentation.presenters
 import ru.anvics.templates.data.repositories.AuthRepository
 import ru.anvics.templates.domain.interactors.AuthInteractor
 import ru.anvics.templates.presentation.views.iviews.AuthView
+import ru.anvics.templates.util.Throwables.SignInThrowable
 
 class AuthPresenter : BasePresenter<AuthView>() {
 
@@ -19,7 +20,8 @@ class AuthPresenter : BasePresenter<AuthView>() {
                             view?.onLoginSuccess()
                         },
                         {
-                            view?.error(it.message.toString())
+                            if(it is SignInThrowable) view?.onInvalidFields(it)
+                            else view?.error(it.message.toString())
                         }
                 )
     }

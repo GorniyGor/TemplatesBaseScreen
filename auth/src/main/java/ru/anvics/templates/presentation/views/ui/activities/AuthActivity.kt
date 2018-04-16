@@ -10,6 +10,7 @@ import ru.anvics.templates.presentation.navigators.AuthNavigator
 import ru.anvics.templates.presentation.presenters.AuthPresenter
 import ru.anvics.templates.presentation.views.iviews.AuthView
 import ru.anvics.templates.util.ProgressDialog
+import ru.anvics.templates.util.Throwables.SignInThrowable
 
 class AuthActivity : BaseActivity(), AuthView {
 
@@ -54,7 +55,17 @@ class AuthActivity : BaseActivity(), AuthView {
         finish()
     }
 
+
+    override fun onInvalidFields(throwable: SignInThrowable) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun error(message: String) {
         //TODO("not implemented")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.destroy()
     }
 }
